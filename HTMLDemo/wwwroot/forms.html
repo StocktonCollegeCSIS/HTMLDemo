@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>JavaScript and Forms</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+<body class="container">
+    <!-- Simple form -->
+    <div class="my-4 p-4 border border border-secondary">
+        <h2 class="pb-2">Example 1 - Simple Adder</h2>
+        <form class="form form-inline">
+            <input type="text" id="op1" placeholder="2" class="form-control mr-3">
+            +
+            <input type="text" id="op2" placeholder="3" class="form-control ml-3">
+            <button id="add" class="btn btn-primary mx-3"> = </button>
+            <span id="sum" class="font-weight-bold"></span>
+        </form>
+    </div>
+
+    <!-- Radio button example  -->
+    <div class="my-4 p-4 border border border-secondary">
+        <h2 class="pb-2">Example 2 - Gender Selector</h2>
+
+        <form class="form">
+            <div class="form-check form-check-inline">
+                <input type="radio" name="gender" value="male" class="form-check-input">
+                <label class="form-check-label mr-3">Male</label>
+                <input type="radio" name="gender" value="female" class="form-check-input">
+                <label class="form-check-label mr-3">Female</label>
+                <input type="radio" name="gender" value="other" checked class="form-check-input">
+                <label class="form-check-label">Other</label>
+            </div>
+            <button type="button" id="genderselect" class="btn btn-warning">Show Selection</button>
+        </form>
+        <h5 id="selected"></h5>
+    </div>
+    <!-- Dropdown list -->
+    <div class="my-4 p-4 border border border-secondary">
+        <h2 class="pb-2">Example 3 - Drop down list</h2>
+        <form>
+            <div class="col-4">
+                <select class="form-control" id="cars">
+                    <option value="0">Volvo</option>
+                    <option value="1">Subaru</option>
+                    <option value="2">Mercedes</option>
+                    <option value="3">Audi</option>
+                </select>
+            </div>
+        </form>
+        <h5 id="selectedcar" class="pt-3"></h5>
+    </div>
+
+    <script>
+        // Adder
+        let button = document.querySelector("#add");
+        button.onclick = function () {
+            let answer = Number(document.querySelector("#op1").value) + Number(document.querySelector("#op2").value);
+            document.querySelector("#sum").textContent = answer;
+            return false;
+        };
+        let selectGender = function () {
+            let gender = document.querySelector("input[type=radio]:checked").value;
+            document.querySelector("#selected").innerHTML = `Current selection: <b> ${gender} </b>`;
+        };
+
+        // Gender selector - radio buttons
+        let selectGen = document.querySelector("#genderselect");
+        selectGen.onclick = selectGender;
+
+        // Car selector - dropdown list
+        let selectCar = function () {
+            let car = document.querySelector("#cars").value;
+            document.querySelector("#selectedcar").innerHTML = `Selected: ${cars[car].make} which costs $${cars[car].price}`;
+        };
+
+        let cars = [{ make: "Volvo", price: 30000 },
+        { make: "Subaru", price: 40000 },
+        { make: "Mercedes", price: 50000 },
+        { make: "Audi", price: 60000 }];
+
+        let selection = document.querySelector("#cars");
+        selection.onchange = selectCar;
+
+        window.onload = function () {
+            selectCar();
+        };
+    </script>
+</body>
+</html>
